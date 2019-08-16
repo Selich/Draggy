@@ -1,0 +1,23 @@
+.draggable{
+    display: inline-block;
+    background: grey;
+    box-shadow: 0 0 3px black;
+    color: white;
+    font-size: 22px;
+    padding: 20px;
+    margin:20px;
+    user-select: none;
+    transition: 0.1s;
+
+}
+.draggable:hover{
+    box-shadow: 0 2px 5px black;
+    transition: 0.1s;
+
+
+}
+.draggable:active{
+    box-shadow: 0 0 4px red;
+
+
+}

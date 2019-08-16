@@ -31,11 +31,3 @@
     transform: rotate(360deg);
   }
 }
-.draggable {
-    /* just to size it to content */
-    display: inline-block;
-    /* opaque background is important for performance */
-    background: white;
-    /* avoid selecting text while dragging */
-    user-select: none;
-}

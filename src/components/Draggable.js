@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+import "./Draggable.css"
 
 const throttle = (f) => {
   let token = null, lastArgs = null;
@@ -16,9 +18,16 @@ const throttle = (f) => {
 };
 
 class Draggable extends React.PureComponent {
+
+    state = {
+        x: this.props.children.x,
+        y: this.props.children.y
+    }
   _relX = 0;
   _relY = 0;
   _ref = React.createRef();
+
+  _move = (x, y) => this.setState({x, y});
 
   _onMouseDown = (event) => {
       if (event.button !== 0) {
@@ -40,15 +49,25 @@ class Draggable extends React.PureComponent {
   };
 
   _onMouseMove = (event) => {
-      this.props.onMove(
-          event.pageX - this._relX,
-          event.pageY - this._relY,
+      console.log("eventx:");
+      console.log(event.pageX)
+      console.log("eventy:");
+      console.log(event.pageY)
+      console.log("relx:");
+      console.log(this._relX)
+      console.log("rely:");
+      console.log(this._relY)
+      this._move(
+          event.pageX - this._relX - 88,
+          event.pageY - this._relY - 33,
+        //   event.pageX + this._relX,
+        //   event.pageY + this._relY,
       );
       event.preventDefault();
   };
 
   _update = throttle(() => {
-      const {x, y} = this.props;
+      const {x, y} = this.state;
       this._ref.current.style.transform = `translate(${x}px, ${y}px)`;
   });
 
@@ -69,6 +88,8 @@ class Draggable extends React.PureComponent {
   render() {
       return (
           <div className="draggable" ref={this._ref}>
+              <p>{this._relX}</p>
+              <p>{this._relY}</p>
               {this.props.children}
           </div>
       );
