@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import RightClickMenu from "./RightClickMenu"
 import "./Draggable.css"
 
 const throttle = (f) => {
@@ -19,14 +20,14 @@ const throttle = (f) => {
 
 class Draggable extends React.PureComponent {
 
-    state = {
-        x: this.props.children.x,
-        y: this.props.children.y
-    }
+     state = {
+        x: this.props.x,
+        y: this.props.y,
+        menuHidden: true
+     }
   _relX = 0;
   _relY = 0;
   _ref = React.createRef();
-
   _move = (x, y) => this.setState({x, y});
 
   _onMouseDown = (event) => {
@@ -58,8 +59,8 @@ class Draggable extends React.PureComponent {
       console.log("rely:");
       console.log(this._relY)
       this._move(
-          event.pageX - this._relX - 88,
-          event.pageY - this._relY - 33,
+          event.pageX - this._relX,
+          event.pageY - this._relY,
         //   event.pageX + this._relX,
         //   event.pageY + this._relY,
       );
@@ -88,8 +89,10 @@ class Draggable extends React.PureComponent {
   render() {
       return (
           <div className="draggable" ref={this._ref}>
+              <RightClickMenu hidden={this.state.menuShow}>
               <p>{this._relX}</p>
               <p>{this._relY}</p>
+              </RightClickMenu>
               {this.props.children}
           </div>
       );

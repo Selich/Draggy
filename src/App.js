@@ -7,33 +7,27 @@ import "./App.css";
 function App() {
   const [hidden, setHidden] = useState(true);
   const [nodes, setNodes] = useState([]);
+  const [num, setNum] = useState(0);
 
   useEffect(() => {
-    setNodes(nodes);
-  }, [nodes]);
+      setNum(nodes.length)
+  }, [num,nodes]);
 
   const createNode = () => {
-    let arr = nodes
-    nodes.push({
-        x: 0,
-        y: 0,
-        data: "Data"
-    })
-    setNodes(arr)
+      setNodes(nodes.concat(<Draggable x={10} y={10}/>))
   };
 
   return (
     <div>
-      <Button value="Upload" onClick={createNode}>
-        Button
+      <Button variant="contained" value="Upload" onClick={createNode}>
+      {num}
       </Button>
-        <Draggable x={33} y={88}>Test</Draggable>
       {
-        nodes.map(node => (
-        <Draggable x={node.x} y={node.y}>D</Draggable>
-        ))
-
+          nodes.map(node => ( node ))
       }
+
+
+
 
       <CommandBar hidden={hidden} />
     </div>
